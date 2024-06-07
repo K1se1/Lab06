@@ -28,76 +28,6 @@ namespace math
 }
 
 template<class T>
-size_t math::Matrix<T>::get_height() const
-{
-    return height;
-}
-
-template<class T>
-size_t math::Matrix<T>::get_width() const
-{
-    return width;
-}
-
-
-
-template<class T>
-T& math::Matrix<T>::at(size_t x, size_t y) const
-{
-    return table->at(x).at(y);
-}
-
-
-
-template<class T>
-bool math::Matrix<T>::operator==(const Matrix<T>& mat) const
-{
-    if(mat.get_height != height || mat.get_width != width) return false;
-    for(size_t i =0; i < height; ++i)
-    {
-        for(size_t j = 0; j < width; ++j)
-        {
-            if(this->table[i][j] != mat.at(i, j)) return false;
-        }
-    }
-    return true;
-}
-
-
-template<class T>
-std::ostream& operator<<(std::ostream& os, const math::Matrix<T>& mat) 
-{
-    size_t height = mat.get_height();
-    size_t width = mat.get_width();
-    for(size_t i =0; i < height; ++i)
-    {
-        for(size_t j = 0; j < width; ++j)
-        {
-            os << mat.at(i, j) << " ";
-        }
-        os << "\n";
-    }
-    return os;
-}
-
-template<class T>
-std::istream& operator>>(std::istream& in, const math::Matrix<T>& mat) 
-{
-    size_t height = mat.get_height();
-    size_t width = mat.get_width();
-    T data;
-    for(int i = 0; i < height; ++i)
-    {
-        for(int j =0; j < width; ++j)
-        {
-            in >> data;
-            mat.at(i, j) =  data;
-        }
-    }
-    return in;
-}
-
-template<class T>
 math::Matrix<T>::Matrix(const Matrix<T>& mat):  height{mat.height}, width{mat.width}
 {
     table = new std::vector<std::vector<T>>(height);
@@ -140,6 +70,72 @@ math::Matrix<T>::~Matrix()
     table = nullptr;
     }
 }
+
+template<class T>
+size_t math::Matrix<T>::get_height() const
+{
+    return height;
+}
+
+template<class T>
+size_t math::Matrix<T>::get_width() const
+{
+    return width;
+}
+
+template<class T>
+T& math::Matrix<T>::at(size_t x, size_t y) const
+{
+    return table->at(x).at(y);
+}
+
+template<class T>
+bool math::Matrix<T>::operator==(const Matrix<T>& mat) const
+{
+    if(mat.get_height != height || mat.get_width != width) return false;
+    for(size_t i =0; i < height; ++i)
+    {
+        for(size_t j = 0; j < width; ++j)
+        {
+            if(this->table[i][j] != mat.at(i, j)) return false;
+        }
+    }
+    return true;
+}
+
+template<class T>
+std::ostream& operator<<(std::ostream& os, const math::Matrix<T>& mat) 
+{
+    size_t height = mat.get_height();
+    size_t width = mat.get_width();
+    for(size_t i =0; i < height; ++i)
+    {
+        for(size_t j = 0; j < width; ++j)
+        {
+            os << mat.at(i, j) << " ";
+        }
+        os << "\n";
+    }
+    return os;
+}
+
+template<class T>
+std::istream& operator>>(std::istream& in, const math::Matrix<T>& mat) 
+{
+    size_t height = mat.get_height();
+    size_t width = mat.get_width();
+    T data;
+    for(int i = 0; i < height; ++i)
+    {
+        for(int j =0; j < width; ++j)
+        {
+            in >> data;
+            mat.at(i, j) =  data;
+        }
+    }
+    return in;
+}
+
 
 template<class T>
 math::Matrix<T> math::Matrix<T>::operator+(const Matrix<T>& mat) const
